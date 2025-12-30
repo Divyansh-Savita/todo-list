@@ -1,20 +1,24 @@
 
-import { useState } from 'react'
+import  { useRef, useState} from 'react'
 import './App.css'
 
 function App() {
-  const [text,setText]=useState("");
-  const handleChange =(e: React.ChangeEvent<HTMLInputElement>)=>{
-    setText(e.target.value)
+  
+  const [display,setDisplay]=useState<string>("");
+  const inputref=useRef<HTMLInputElement>(null);
+  const handleClick =()=>{
+    if (inputref.current) {
+      setDisplay(inputref.current.value);
+    }
   }
   return (
     <>
       <input type="text"
-      value={text}
-      onChange={handleChange}
+      ref={inputref}
       placeholder="I'm rich"
       />
-      <p>{text}</p>
+      <button onClick={handleClick}>Click me</button>
+      <p>{display}</p>
     </>
   )
 }
